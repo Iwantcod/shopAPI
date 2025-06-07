@@ -1,5 +1,5 @@
 ---
-openapi: 3.0.1
+openapi: 3.1.0
 info:
   title: API Doc
   description: Computer Shop Project API UI
@@ -24,7 +24,7 @@ paths:
       tags:
       - 판매자 API
       summary: 상품 추가
-      description: 2개 이미지 필수. 등록자 id는 jwt내에 존재하는 id로 사용
+      description: 대표 이미지 및 상세 이미지 필수. 게시자명은 유저네임(닉네임) 사용
       operationId: addProduct
       requestBody:
         content:
@@ -36,8 +36,7 @@ paths:
           description: OK
           content:
             "*/*":
-              schema:
-                type: object
+              schema: {}
   "/api/seller/product-update/{productId}":
     post:
       tags:
@@ -62,8 +61,7 @@ paths:
           description: OK
           content:
             "*/*":
-              schema:
-                type: object
+              schema: {}
   "/api/review":
     post:
       tags:
@@ -82,8 +80,7 @@ paths:
           description: OK
           content:
             "*/*":
-              schema:
-                type: object
+              schema: {}
   "/api/order/pre-request":
     post:
       tags:
@@ -102,8 +99,7 @@ paths:
           description: OK
           content:
             "*/*":
-              schema:
-                type: object
+              schema: {}
   "/api/order/approve-request":
     post:
       tags:
@@ -122,8 +118,7 @@ paths:
           description: OK
           content:
             "*/*":
-              schema:
-                type: object
+              schema: {}
   "/api/cart/add":
     post:
       tags:
@@ -141,13 +136,13 @@ paths:
           description: OK
           content:
             "*/*":
-              schema:
-                type: object
+              schema: {}
   "/api/auth/join":
     post:
       tags:
       - 인증 API
       summary: 일반 사용자 회원가입
+      description: 일반 사용자의 유저네임은 중복될 수 없습니다.
       operationId: join
       parameters:
       - name: joinUserDto
@@ -160,14 +155,13 @@ paths:
           description: OK
           content:
             "*/*":
-              schema:
-                type: object
+              schema: {}
   "/api/auth/join/seller":
     post:
       tags:
       - 인증 API
       summary: 판매자 회원가입
-      description: 추가적으로 필요한 정보 입력
+      description: 사업자명은 판매자의 유저네임이 됩니다. 판매자의 경우 유저네임 중복을 허용합니다.
       operationId: joinSeller
       parameters:
       - name: joinSellerDto
@@ -180,8 +174,92 @@ paths:
           description: OK
           content:
             "*/*":
-              schema:
-                type: object
+              schema: {}
+  "/api/auth/join-complete":
+    post:
+      tags:
+      - 인증 API
+      summary: OAuth2 가입자 추가 정보 저장
+      operationId: joinComplete
+      parameters:
+      - name: joinCompleteDto
+        in: query
+        required: true
+        schema:
+          "$ref": "#/components/schemas/JoinCompleteDto"
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema: {}
+  "/api/admin/spec/{categoryName}":
+    post:
+      tags:
+      - 관리자 API
+      summary: 해당 카테고리의 모델 스펙 정보 추가
+      operationId: addSpec
+      parameters:
+      - name: categoryName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: {}
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema: {}
+    patch:
+      tags:
+      - 관리자 API
+      summary: 해당 카테고리의 모델 스펙 정보 수정
+      operationId: updateSpec
+      parameters:
+      - name: categoryName
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: {}
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema: {}
+  "/api/admin/benchmark":
+    post:
+      tags:
+      - 관리자 API
+      summary: 벤치마크 정보 추가
+      operationId: addBenchMark
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ReqBenchMarkDto"
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema: {}
   "/api/user":
     patch:
       tags:
@@ -200,8 +278,7 @@ paths:
           description: OK
           content:
             "*/*":
-              schema:
-                type: object
+              schema: {}
   "/api/user/off":
     patch:
       tags:
@@ -214,8 +291,7 @@ paths:
           description: OK
           content:
             "*/*":
-              schema:
-                type: object
+              schema: {}
   "/api/seller/product/{productId}":
     patch:
       tags:
@@ -235,8 +311,7 @@ paths:
           description: OK
           content:
             "*/*":
-              schema:
-                type: object
+              schema: {}
   "/api/seller/inven-up/{productId}/{quantity}":
     patch:
       tags:
@@ -262,8 +337,7 @@ paths:
           description: OK
           content:
             "*/*":
-              schema:
-                type: object
+              schema: {}
   "/api/seller/inven-down/{productId}/{quantity}":
     patch:
       tags:
@@ -289,8 +363,7 @@ paths:
           description: OK
           content:
             "*/*":
-              schema:
-                type: object
+              schema: {}
   "/api/review/{reviewId}":
     delete:
       tags:
@@ -310,8 +383,7 @@ paths:
           description: OK
           content:
             "*/*":
-              schema:
-                type: object
+              schema: {}
     patch:
       tags:
       - 리뷰 API
@@ -335,8 +407,7 @@ paths:
           description: OK
           content:
             "*/*":
-              schema:
-                type: object
+              schema: {}
   "/api/order/cancel/{orderId}":
     patch:
       tags:
@@ -356,8 +427,7 @@ paths:
           description: OK
           content:
             "*/*":
-              schema:
-                type: object
+              schema: {}
   "/api/cart/up/{cartId}":
     patch:
       tags:
@@ -376,8 +446,7 @@ paths:
           description: OK
           content:
             "*/*":
-              schema:
-                type: object
+              schema: {}
   "/api/cart/down/{cartId}":
     patch:
       tags:
@@ -396,14 +465,13 @@ paths:
           description: OK
           content:
             "*/*":
-              schema:
-                type: object
+              schema: {}
   "/api/business":
     patch:
       tags:
       - 사업자 정보 API
       summary: 자신의 BusinessInfo 정보 수정
-      description: jwt의 userId 정보에 해당하는 BusinessInfo의 정보 수정
+      description: 사업자명이 변경되면 판매자의 유저네임 또한 동시에 변경됩니다.
       operationId: updateBusinessInfo
       parameters:
       - name: reqBusinessInfoDto
@@ -416,8 +484,26 @@ paths:
           description: OK
           content:
             "*/*":
-              schema:
-                type: object
+              schema: {}
+  "/api/admin/disapprove-seller/{userId}":
+    patch:
+      tags:
+      - 관리자 API
+      summary: 특정 판매자 권한 회수
+      operationId: disapproveSellerAuth
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema: {}
   "/api/admin/category":
     delete:
       tags:
@@ -436,8 +522,7 @@ paths:
           description: OK
           content:
             "*/*":
-              schema:
-                type: object
+              schema: {}
     patch:
       tags:
       - 관리자 API
@@ -454,8 +539,51 @@ paths:
           description: OK
           content:
             "*/*":
-              schema:
-                type: object
+              schema: {}
+  "/api/admin/benchmark/{benchMarkId}":
+    delete:
+      tags:
+      - 관리자 API
+      summary: 벤치마크 정보 삭제
+      operationId: deleteBenchMark
+      parameters:
+      - name: benchMarkId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema: {}
+    patch:
+      tags:
+      - 관리자 API
+      summary: 벤치마크 정보 수정
+      description: 수치 값만 수정할 수 있습니다.
+      operationId: updateBenchMark
+      parameters:
+      - name: benchMarkId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ReqBenchMarkDto"
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema: {}
   "/api/admin/approve-seller/{userId}":
     patch:
       tags:
@@ -474,8 +602,7 @@ paths:
           description: OK
           content:
             "*/*":
-              schema:
-                type: object
+              schema: {}
   "/api/user/{userId}":
     get:
       tags:
@@ -494,8 +621,7 @@ paths:
           description: OK
           content:
             "*/*":
-              schema:
-                type: object
+              schema: {}
   "/api/user/my-info":
     get:
       tags:
@@ -508,8 +634,7 @@ paths:
           description: OK
           content:
             "*/*":
-              schema:
-                type: object
+              schema: {}
   "/api/user/email/{email}":
     get:
       tags:
@@ -527,8 +652,7 @@ paths:
           description: OK
           content:
             "*/*":
-              schema:
-                type: object
+              schema: {}
   "/api/spec/{categoryName}/name/{modelName}/{startOffset}":
     get:
       tags:
@@ -557,8 +681,7 @@ paths:
           description: OK
           content:
             "*/*":
-              schema:
-                type: object
+              schema: {}
   "/api/spec/{categoryName}/latest/{startOffset}":
     get:
       tags:
@@ -582,8 +705,7 @@ paths:
           description: OK
           content:
             "*/*":
-              schema:
-                type: object
+              schema: {}
   "/api/spec/{categoryName}/id/{productSpecId}":
     get:
       tags:
@@ -608,8 +730,7 @@ paths:
           description: OK
           content:
             "*/*":
-              schema:
-                type: object
+              schema: {}
   "/api/review/{productId}/{startOffset}":
     get:
       tags:
@@ -635,8 +756,7 @@ paths:
           description: OK
           content:
             "*/*":
-              schema:
-                type: object
+              schema: {}
   "/api/product/{productId}":
     get:
       tags:
@@ -656,8 +776,7 @@ paths:
           description: OK
           content:
             "*/*":
-              schema:
-                type: object
+              schema: {}
   "/api/product/{categoryName}/popular/{startOffset}":
     get:
       tags:
@@ -682,8 +801,7 @@ paths:
           description: OK
           content:
             "*/*":
-              schema:
-                type: object
+              schema: {}
   "/api/product/{categoryName}/lowest-price/{startOffset}":
     get:
       tags:
@@ -708,8 +826,7 @@ paths:
           description: OK
           content:
             "*/*":
-              schema:
-                type: object
+              schema: {}
   "/api/product/{categoryName}/latest/{startOffset}":
     get:
       tags:
@@ -734,8 +851,7 @@ paths:
           description: OK
           content:
             "*/*":
-              schema:
-                type: object
+              schema: {}
   "/api/product/{categoryName}/highest-price/{startOffset}":
     get:
       tags:
@@ -760,8 +876,7 @@ paths:
           description: OK
           content:
             "*/*":
-              schema:
-                type: object
+              schema: {}
   "/api/product/seller/{userId}/{startOffset}":
     get:
       tags:
@@ -787,8 +902,7 @@ paths:
           description: OK
           content:
             "*/*":
-              schema:
-                type: object
+              schema: {}
   "/api/product/image":
     get:
       tags:
@@ -822,8 +936,7 @@ paths:
           description: OK
           content:
             "*/*":
-              schema:
-                type: object
+              schema: {}
   "/api/order-item/{orderId}":
     get:
       tags:
@@ -865,8 +978,7 @@ paths:
           description: OK
           content:
             "*/*":
-              schema:
-                type: object
+              schema: {}
   "/api/category/name/{categoryName}":
     get:
       tags:
@@ -884,8 +996,7 @@ paths:
           description: OK
           content:
             "*/*":
-              schema:
-                type: object
+              schema: {}
   "/api/cart/my":
     get:
       tags:
@@ -919,8 +1030,32 @@ paths:
           description: OK
           content:
             "*/*":
-              schema:
-                type: object
+              schema: {}
+  "/api/benchmark":
+    get:
+      tags:
+      - 벤치마크 API
+      summary: cpu, graphic 식별자를 통해 벤치마크 값 조회
+      operationId: getBenchMark
+      parameters:
+      - name: cpuSpecId
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: graphicSpecId
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema: {}
   "/api/auth/refresh":
     get:
       tags:
@@ -933,9 +1068,27 @@ paths:
           description: OK
           content:
             "*/*":
-              schema:
-                type: object
-  "/api/auth/dup/{email}":
+              schema: {}
+  "/api/auth/dup-username/{username}":
+    get:
+      tags:
+      - 인증 API
+      summary: 유저네임 중복검사
+      description: 일반 사용자의 유저네임은 중복 불가
+      operationId: isDupUsername
+      parameters:
+      - name: username
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema: {}
+  "/api/auth/dup-email/{email}":
     get:
       tags:
       - 인증 API
@@ -953,8 +1106,26 @@ paths:
           description: OK
           content:
             "*/*":
-              schema:
-                type: object
+              schema: {}
+  "/api/admin/check-on-approval/{startOffset}":
+    get:
+      tags:
+      - 관리자 API
+      summary: 판매자 권한 승인을 기다리는 판매자 목록 조회(페이징)
+      operationId: checkOnApproval
+      parameters:
+      - name: startOffset
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema: {}
   "/api/order/{orderId}":
     delete:
       tags:
@@ -974,8 +1145,7 @@ paths:
           description: OK
           content:
             "*/*":
-              schema:
-                type: object
+              schema: {}
   "/api/cart/{cartId}":
     delete:
       tags:
@@ -994,19 +1164,10 @@ paths:
           description: OK
           content:
             "*/*":
-              schema:
-                type: object
+              schema: {}
 components:
   schemas:
     ReqProductDto:
-      required:
-      - categoryId
-      - descriptionImage
-      - inventory
-      - logicalFK
-      - name
-      - price
-      - productImage
       type: object
       properties:
         name:
@@ -1018,19 +1179,27 @@ components:
           type: integer
           format: int64
         price:
-          minimum: 1
           type: integer
           format: int32
+          minimum: 1
         inventory:
-          minimum: 1
           type: integer
           format: int32
+          minimum: 1
         productImage:
           type: string
           format: binary
         descriptionImage:
           type: string
           format: binary
+      required:
+      - categoryId
+      - descriptionImage
+      - inventory
+      - logicalFK
+      - name
+      - price
+      - productImage
     ReqUpdateProductInfoDto:
       type: object
       properties:
@@ -1046,9 +1215,6 @@ components:
           type: string
           format: binary
     ReqReviewDto:
-      required:
-      - comment
-      - productId
       type: object
       properties:
         productId:
@@ -1059,11 +1225,10 @@ components:
           format: int64
         comment:
           type: string
-    ReqOrderDto:
       required:
-      - orderAddress
-      - orderItems
-      - phone
+      - comment
+      - productId
+    ReqOrderDto:
       type: object
       properties:
         orderAddress:
@@ -1074,24 +1239,24 @@ components:
           type: array
           items:
             "$ref": "#/components/schemas/ReqOrderItemsDto"
-    ReqOrderItemsDto:
       required:
-      - productId
-      - quantity
+      - orderAddress
+      - orderItems
+      - phone
+    ReqOrderItemsDto:
       type: object
       properties:
         productId:
           type: integer
           format: int64
         quantity:
-          minimum: 1
           type: integer
           format: int32
-    ReqApproveOrderDto:
+          minimum: 1
       required:
-      - amount
-      - orderId
-      - paymentKey
+      - productId
+      - quantity
+    ReqApproveOrderDto:
       type: object
       properties:
         paymentKey:
@@ -1102,24 +1267,24 @@ components:
         amount:
           type: integer
           format: int32
-    ReqCartDto:
       required:
-      - productId
-      - quantity
+      - amount
+      - orderId
+      - paymentKey
+    ReqCartDto:
       type: object
       properties:
         productId:
           type: integer
           format: int64
         quantity:
-          minimum: 1
           type: integer
           format: int32
-    JoinUserDto:
+          minimum: 1
       required:
-      - email
-      - name
-      - password
+      - productId
+      - quantity
+    JoinUserDto:
       type: object
       properties:
         email:
@@ -1137,17 +1302,14 @@ components:
           type: string
         zipCode:
           type: string
-    JoinSellerDto:
+        username:
+          type: string
       required:
-      - bankAccount
-      - bankName
-      - businessNumber
-      - businessType
-      - depositor
       - email
       - name
-      - officeAddress
       - password
+      - username
+    JoinSellerDto:
       type: object
       properties:
         email:
@@ -1177,9 +1339,57 @@ components:
           type: string
         depositor:
           type: string
-    UpdateUserDto:
+        businessName:
+          type: string
       required:
-      - userId
+      - bankAccount
+      - bankName
+      - businessName
+      - businessNumber
+      - businessType
+      - depositor
+      - email
+      - name
+      - officeAddress
+      - password
+    JoinCompleteDto:
+      type: object
+      properties:
+        username:
+          type: string
+        birth:
+          type: string
+          format: date
+        phone:
+          type: string
+        address:
+          type: string
+        zipCode:
+          type: string
+      required:
+      - username
+    ReqBenchMarkDto:
+      type: object
+      properties:
+        cpuSpecId:
+          type: integer
+          format: int64
+        graphicSpecId:
+          type: integer
+          format: int64
+        avgFrame1:
+          type: integer
+          format: int32
+        avgFrame2:
+          type: integer
+          format: int32
+        avgFrame3:
+          type: integer
+          format: int32
+      required:
+      - cpuSpecId
+      - graphicSpecId
+    UpdateUserDto:
       type: object
       properties:
         userId:
@@ -1198,6 +1408,8 @@ components:
           type: string
         zipCode:
           type: string
+      required:
+      - userId
     ReqUpdateReviewDto:
       type: object
       properties:
@@ -1217,6 +1429,8 @@ components:
         bankAccount:
           type: string
         depositor:
+          type: string
+        businessName:
           type: string
     ReqCategoryDto:
       type: object
