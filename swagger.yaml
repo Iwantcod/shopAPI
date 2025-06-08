@@ -441,21 +441,6 @@ paths:
         '200':
           description: OK
   "/api/admin/category":
-    delete:
-      tags:
-      - 관리자 API
-      summary: 특정 카테고리 제거
-      description: 가능한 사용 X
-      operationId: deleteCategory
-      parameters:
-      - name: reqCategoryDto
-        in: query
-        required: true
-        schema:
-          "$ref": "#/components/schemas/ReqCategoryDto"
-      responses:
-        '200':
-          description: OK
     patch:
       tags:
       - 관리자 API
@@ -1137,6 +1122,23 @@ paths:
       responses:
         '200':
           description: OK
+  "/api/admin/category/{categoryId}":
+    delete:
+      tags:
+      - 관리자 API
+      summary: 특정 카테고리 제거
+      description: 가능한 사용 X
+      operationId: deleteCategory
+      parameters:
+      - name: categoryId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
 components:
   schemas:
     ReqProductDto:
@@ -1421,6 +1423,8 @@ components:
           format: int32
         categoryName:
           type: string
+      required:
+      - categoryName
     ResUserDto:
       type: object
       properties:
