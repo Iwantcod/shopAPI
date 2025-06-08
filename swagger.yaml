@@ -34,9 +34,6 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            "*/*":
-              schema: {}
   "/api/seller/product-update/{productId}":
     post:
       tags:
@@ -59,9 +56,6 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            "*/*":
-              schema: {}
   "/api/review":
     post:
       tags:
@@ -78,9 +72,6 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            "*/*":
-              schema: {}
   "/api/order/pre-request":
     post:
       tags:
@@ -99,7 +90,8 @@ paths:
           description: OK
           content:
             "*/*":
-              schema: {}
+              schema:
+                "$ref": "#/components/schemas/ResOrderAuthDto"
   "/api/order/approve-request":
     post:
       tags:
@@ -118,7 +110,8 @@ paths:
           description: OK
           content:
             "*/*":
-              schema: {}
+              schema:
+                type: string
   "/api/cart/add":
     post:
       tags:
@@ -134,9 +127,6 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            "*/*":
-              schema: {}
   "/api/auth/join":
     post:
       tags:
@@ -153,9 +143,6 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            "*/*":
-              schema: {}
   "/api/auth/join/seller":
     post:
       tags:
@@ -172,9 +159,6 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            "*/*":
-              schema: {}
   "/api/auth/join-complete":
     post:
       tags:
@@ -190,9 +174,6 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            "*/*":
-              schema: {}
   "/api/admin/spec/{categoryName}":
     post:
       tags:
@@ -215,9 +196,6 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            "*/*":
-              schema: {}
     patch:
       tags:
       - 관리자 API
@@ -239,9 +217,6 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            "*/*":
-              schema: {}
   "/api/admin/benchmark":
     post:
       tags:
@@ -257,9 +232,6 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            "*/*":
-              schema: {}
   "/api/user":
     patch:
       tags:
@@ -276,9 +248,6 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            "*/*":
-              schema: {}
   "/api/user/off":
     patch:
       tags:
@@ -289,9 +258,6 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            "*/*":
-              schema: {}
   "/api/seller/product/{productId}":
     patch:
       tags:
@@ -309,9 +275,6 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            "*/*":
-              schema: {}
   "/api/seller/inven-up/{productId}/{quantity}":
     patch:
       tags:
@@ -335,9 +298,6 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            "*/*":
-              schema: {}
   "/api/seller/inven-down/{productId}/{quantity}":
     patch:
       tags:
@@ -361,9 +321,6 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            "*/*":
-              schema: {}
   "/api/review/{reviewId}":
     delete:
       tags:
@@ -381,9 +338,6 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            "*/*":
-              schema: {}
     patch:
       tags:
       - 리뷰 API
@@ -405,9 +359,6 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            "*/*":
-              schema: {}
   "/api/order/cancel/{orderId}":
     patch:
       tags:
@@ -425,9 +376,6 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            "*/*":
-              schema: {}
   "/api/cart/up/{cartId}":
     patch:
       tags:
@@ -444,9 +392,6 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            "*/*":
-              schema: {}
   "/api/cart/down/{cartId}":
     patch:
       tags:
@@ -463,9 +408,6 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            "*/*":
-              schema: {}
   "/api/business":
     patch:
       tags:
@@ -482,9 +424,6 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            "*/*":
-              schema: {}
   "/api/admin/disapprove-seller/{userId}":
     patch:
       tags:
@@ -501,9 +440,6 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            "*/*":
-              schema: {}
   "/api/admin/category":
     delete:
       tags:
@@ -520,9 +456,6 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            "*/*":
-              schema: {}
     patch:
       tags:
       - 관리자 API
@@ -537,9 +470,6 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            "*/*":
-              schema: {}
   "/api/admin/benchmark/{benchMarkId}":
     delete:
       tags:
@@ -556,9 +486,6 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            "*/*":
-              schema: {}
     patch:
       tags:
       - 관리자 API
@@ -581,9 +508,6 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            "*/*":
-              schema: {}
   "/api/admin/approve-seller/{userId}":
     patch:
       tags:
@@ -600,9 +524,6 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            "*/*":
-              schema: {}
   "/api/user/{userId}":
     get:
       tags:
@@ -621,7 +542,8 @@ paths:
           description: OK
           content:
             "*/*":
-              schema: {}
+              schema:
+                "$ref": "#/components/schemas/ResUserDto"
   "/api/user/my-info":
     get:
       tags:
@@ -634,7 +556,8 @@ paths:
           description: OK
           content:
             "*/*":
-              schema: {}
+              schema:
+                "$ref": "#/components/schemas/ResUserDto"
   "/api/user/email/{email}":
     get:
       tags:
@@ -652,7 +575,8 @@ paths:
           description: OK
           content:
             "*/*":
-              schema: {}
+              schema:
+                "$ref": "#/components/schemas/ResUserDto"
   "/api/spec/{categoryName}/name/{modelName}/{startOffset}":
     get:
       tags:
@@ -731,6 +655,23 @@ paths:
           content:
             "*/*":
               schema: {}
+  "/api/seller/review/write-permission/{productId}":
+    get:
+      tags:
+      - 판매자 API
+      summary: 리뷰 답글 작성 권한 확인
+      description: 자신이 게시한 상품의 리뷰에만 답글을 작성할 수 있습니다.
+      operationId: reviewWritePermission
+      parameters:
+      - name: productId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
   "/api/review/{productId}/{startOffset}":
     get:
       tags:
@@ -756,7 +697,27 @@ paths:
           description: OK
           content:
             "*/*":
-              schema: {}
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ResReviewDto"
+  "/api/review/write-permission/{productId}":
+    get:
+      tags:
+      - 리뷰 API
+      summary: 리뷰 작성 권한 확인
+      description: 상품 구매자만 리뷰를 작성할 수 있습니다.
+      operationId: writePermission
+      parameters:
+      - name: productId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
   "/api/product/{productId}":
     get:
       tags:
@@ -776,7 +737,8 @@ paths:
           description: OK
           content:
             "*/*":
-              schema: {}
+              schema:
+                "$ref": "#/components/schemas/ResProductDto"
   "/api/product/{categoryName}/popular/{startOffset}":
     get:
       tags:
@@ -801,7 +763,10 @@ paths:
           description: OK
           content:
             "*/*":
-              schema: {}
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ResProductDto"
   "/api/product/{categoryName}/lowest-price/{startOffset}":
     get:
       tags:
@@ -826,7 +791,10 @@ paths:
           description: OK
           content:
             "*/*":
-              schema: {}
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ResProductDto"
   "/api/product/{categoryName}/latest/{startOffset}":
     get:
       tags:
@@ -851,7 +819,10 @@ paths:
           description: OK
           content:
             "*/*":
-              schema: {}
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ResProductDto"
   "/api/product/{categoryName}/highest-price/{startOffset}":
     get:
       tags:
@@ -876,7 +847,10 @@ paths:
           description: OK
           content:
             "*/*":
-              schema: {}
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ResProductDto"
   "/api/product/seller/{userId}/{startOffset}":
     get:
       tags:
@@ -902,7 +876,10 @@ paths:
           description: OK
           content:
             "*/*":
-              schema: {}
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ResProductDto"
   "/api/product/image":
     get:
       tags:
@@ -936,7 +913,10 @@ paths:
           description: OK
           content:
             "*/*":
-              schema: {}
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ResOrderDto"
   "/api/order-item/{orderId}":
     get:
       tags:
@@ -978,7 +958,8 @@ paths:
           description: OK
           content:
             "*/*":
-              schema: {}
+              schema:
+                "$ref": "#/components/schemas/ResCategoryDto"
   "/api/category/name/{categoryName}":
     get:
       tags:
@@ -996,7 +977,8 @@ paths:
           description: OK
           content:
             "*/*":
-              schema: {}
+              schema:
+                "$ref": "#/components/schemas/ResCategoryDto"
   "/api/cart/my":
     get:
       tags:
@@ -1030,7 +1012,8 @@ paths:
           description: OK
           content:
             "*/*":
-              schema: {}
+              schema:
+                "$ref": "#/components/schemas/ResBusinessInfoDto"
   "/api/benchmark":
     get:
       tags:
@@ -1055,7 +1038,8 @@ paths:
           description: OK
           content:
             "*/*":
-              schema: {}
+              schema:
+                "$ref": "#/components/schemas/ResBenchMarkDto"
   "/api/auth/refresh":
     get:
       tags:
@@ -1066,9 +1050,6 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            "*/*":
-              schema: {}
   "/api/auth/dup-username/{username}":
     get:
       tags:
@@ -1085,9 +1066,6 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            "*/*":
-              schema: {}
   "/api/auth/dup-email/{email}":
     get:
       tags:
@@ -1104,9 +1082,6 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            "*/*":
-              schema: {}
   "/api/admin/check-on-approval/{startOffset}":
     get:
       tags:
@@ -1125,7 +1100,10 @@ paths:
           description: OK
           content:
             "*/*":
-              schema: {}
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ResBusinessInfoDto"
   "/api/order/{orderId}":
     delete:
       tags:
@@ -1143,9 +1121,6 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            "*/*":
-              schema: {}
   "/api/cart/{cartId}":
     delete:
       tags:
@@ -1162,9 +1137,6 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            "*/*":
-              schema: {}
 components:
   schemas:
     ReqProductDto:
@@ -1256,6 +1228,15 @@ components:
       required:
       - productId
       - quantity
+    ResOrderAuthDto:
+      type: object
+      properties:
+        orderId:
+          type: string
+          format: uuid
+        amount:
+          type: integer
+          format: int32
     ReqApproveOrderDto:
       type: object
       properties:
@@ -1440,13 +1421,111 @@ components:
           format: int32
         categoryName:
           type: string
-    ResOrderItemsDto:
+    ResUserDto:
+      type: object
+      properties:
+        userId:
+          type: integer
+          format: int64
+        email:
+          type: string
+        name:
+          type: string
+        birth:
+          type: string
+        phone:
+          type: string
+        address:
+          type: string
+        zipCode:
+          type: string
+        role:
+          type: string
+    ResReviewDto:
+      type: object
+      properties:
+        reviewId:
+          type: integer
+          format: int64
+        userId:
+          type: integer
+          format: int64
+        username:
+          type: string
+        comment:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        materializedPath:
+          type: string
+    ResProductDto:
       type: object
       properties:
         productId:
           type: integer
           format: int64
         name:
+          type: string
+        price:
+          type: integer
+          format: int32
+        inventory:
+          type: integer
+          format: int32
+        sellerUserId:
+          type: integer
+          format: int64
+        sellerUserName:
+          type: string
+        productImageUrl:
+          type: string
+        descriptionImageUrl:
+          type: string
+        categoryId:
+          type: integer
+          format: int32
+        logicalFK:
+          type: integer
+          format: int64
+        createdAt:
+          type: string
+          format: date
+        volume:
+          type: integer
+          format: int32
+    ResOrderDto:
+      type: object
+      properties:
+        orderId:
+          type: integer
+          format: int64
+        amount:
+          type: integer
+          format: int32
+        requestedAt:
+          type: string
+          format: date-time
+        address:
+          type: string
+        phone:
+          type: string
+        deliveryStatus:
+          type: string
+          enum:
+          - PROCESSING
+          - IN_DELIVERY
+          - DELIVERED
+          - RETURNING
+          - CANCELED
+          - CONFIRMED
+    ResOrderItemsDto:
+      type: object
+      properties:
+        productId:
+          type: integer
+          format: int64
+        productName:
           type: string
         sellerUserId:
           type: integer
@@ -1456,6 +1535,14 @@ components:
         quantity:
           type: integer
           format: int32
+    ResCategoryDto:
+      type: object
+      properties:
+        categoryId:
+          type: integer
+          format: int32
+        categoryName:
+          type: string
     ResCartDto:
       type: object
       properties:
@@ -1481,6 +1568,56 @@ components:
           type: integer
           format: int64
         quantity:
+          type: integer
+          format: int32
+    ResBusinessInfoDto:
+      type: object
+      properties:
+        businessId:
+          type: integer
+          format: int64
+        userId:
+          type: integer
+          format: int64
+        businessType:
+          type: string
+        businessNumber:
+          type: string
+        officeAddress:
+          type: string
+        bankName:
+          type: string
+        bankAccount:
+          type: string
+        depositor:
+          type: string
+        businessName:
+          type: string
+        isApprove:
+          type: boolean
+    ResBenchMarkDto:
+      type: object
+      properties:
+        benchmarkId:
+          type: integer
+          format: int64
+        cpuSpecId:
+          type: integer
+          format: int64
+        cpuModelName:
+          type: string
+        graphicSpecId:
+          type: integer
+          format: int64
+        graphicModelName:
+          type: string
+        avgFrame1:
+          type: integer
+          format: int32
+        avgFrame2:
+          type: integer
+          format: int32
+        avgFrame3:
           type: integer
           format: int32
   securitySchemes:
