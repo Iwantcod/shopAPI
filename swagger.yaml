@@ -63,12 +63,11 @@ paths:
       summary: 리뷰 작성
       description: parentReviewId는 필수 값이 아닙니다.
       operationId: addReview
-      parameters:
-      - name: reqReviewDto
-        in: query
-        required: true
-        schema:
-          "$ref": "#/components/schemas/ReqReviewDto"
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              "$ref": "#/components/schemas/ReqReviewDto"
       responses:
         '200':
           description: OK
@@ -134,12 +133,11 @@ paths:
       summary: 일반 사용자 회원가입
       description: 일반 사용자의 유저네임은 중복될 수 없습니다.
       operationId: join
-      parameters:
-      - name: joinUserDto
-        in: query
-        required: true
-        schema:
-          "$ref": "#/components/schemas/JoinUserDto"
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              "$ref": "#/components/schemas/JoinUserDto"
       responses:
         '200':
           description: OK
@@ -150,12 +148,11 @@ paths:
       summary: 판매자 회원가입
       description: 사업자명은 판매자의 유저네임이 됩니다. 판매자의 경우 유저네임 중복을 허용합니다.
       operationId: joinSeller
-      parameters:
-      - name: joinSellerDto
-        in: query
-        required: true
-        schema:
-          "$ref": "#/components/schemas/JoinSellerDto"
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              "$ref": "#/components/schemas/JoinSellerDto"
       responses:
         '200':
           description: OK
@@ -165,12 +162,11 @@ paths:
       - 인증 API
       summary: OAuth2 가입자 추가 정보 저장
       operationId: joinComplete
-      parameters:
-      - name: joinCompleteDto
-        in: query
-        required: true
-        schema:
-          "$ref": "#/components/schemas/JoinCompleteDto"
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              "$ref": "#/components/schemas/JoinCompleteDto"
       responses:
         '200':
           description: OK
@@ -217,6 +213,33 @@ paths:
       responses:
         '200':
           description: OK
+  "/api/admin/category":
+    post:
+      tags:
+      - 관리자 API
+      summary: 카테고리 추가
+      operationId: createCategory
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              "$ref": "#/components/schemas/ReqCategoryDto"
+      responses:
+        '200':
+          description: OK
+    patch:
+      tags:
+      - 관리자 API
+      summary: 특정 카테고리의 이름 변경
+      operationId: updateCategory
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              "$ref": "#/components/schemas/ReqCategoryDto"
+      responses:
+        '200':
+          description: OK
   "/api/admin/benchmark":
     post:
       tags:
@@ -225,10 +248,9 @@ paths:
       operationId: addBenchMark
       requestBody:
         content:
-          application/json:
+          multipart/form-data:
             schema:
               "$ref": "#/components/schemas/ReqBenchMarkDto"
-        required: true
       responses:
         '200':
           description: OK
@@ -239,12 +261,11 @@ paths:
       summary: 자신의 회원 정보 수정
       description: jwt의 userId 정보에 해당하는 회원의 정보 수정
       operationId: updateUser
-      parameters:
-      - name: updateUserDto
-        in: query
-        required: true
-        schema:
-          "$ref": "#/components/schemas/UpdateUserDto"
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              "$ref": "#/components/schemas/UpdateUserDto"
       responses:
         '200':
           description: OK
@@ -351,11 +372,11 @@ paths:
         schema:
           type: integer
           format: int64
-      - name: reqUpdateReviewDto
-        in: query
-        required: true
-        schema:
-          "$ref": "#/components/schemas/ReqUpdateReviewDto"
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              "$ref": "#/components/schemas/ReqUpdateReviewDto"
       responses:
         '200':
           description: OK
@@ -415,12 +436,11 @@ paths:
       summary: 자신의 BusinessInfo 정보 수정
       description: 사업자명이 변경되면 판매자의 유저네임 또한 동시에 변경됩니다.
       operationId: updateBusinessInfo
-      parameters:
-      - name: reqBusinessInfoDto
-        in: query
-        required: true
-        schema:
-          "$ref": "#/components/schemas/ReqBusinessInfoDto"
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              "$ref": "#/components/schemas/ReqBusinessInfoDto"
       responses:
         '200':
           description: OK
@@ -437,21 +457,6 @@ paths:
         schema:
           type: integer
           format: int64
-      responses:
-        '200':
-          description: OK
-  "/api/admin/category":
-    patch:
-      tags:
-      - 관리자 API
-      summary: 특정 카테고리의 이름 변경
-      operationId: updateCategory
-      parameters:
-      - name: reqCategoryDto
-        in: query
-        required: true
-        schema:
-          "$ref": "#/components/schemas/ReqCategoryDto"
       responses:
         '200':
           description: OK
@@ -486,10 +491,9 @@ paths:
           format: int64
       requestBody:
         content:
-          application/json:
+          multipart/form-data:
             schema:
-              "$ref": "#/components/schemas/ReqBenchMarkDto"
-        required: true
+              "$ref": "#/components/schemas/BenchMarkDto"
       responses:
         '200':
           description: OK
@@ -1351,15 +1355,19 @@ components:
           type: string
       required:
       - username
+    ReqCategoryDto:
+      type: object
+      properties:
+        categoryId:
+          type: integer
+          format: int32
+        categoryName:
+          type: string
+      required:
+      - categoryName
     ReqBenchMarkDto:
       type: object
       properties:
-        cpuSpecId:
-          type: integer
-          format: int64
-        graphicSpecId:
-          type: integer
-          format: int64
         avgFrame1:
           type: integer
           format: int32
@@ -1369,6 +1377,12 @@ components:
         avgFrame3:
           type: integer
           format: int32
+        cpuSpecId:
+          type: integer
+          format: int64
+        graphicSpecId:
+          type: integer
+          format: int64
       required:
       - cpuSpecId
       - graphicSpecId
@@ -1415,16 +1429,18 @@ components:
           type: string
         businessName:
           type: string
-    ReqCategoryDto:
+    BenchMarkDto:
       type: object
       properties:
-        categoryId:
+        avgFrame1:
           type: integer
           format: int32
-        categoryName:
-          type: string
-      required:
-      - categoryName
+        avgFrame2:
+          type: integer
+          format: int32
+        avgFrame3:
+          type: integer
+          format: int32
     ResUserDto:
       type: object
       properties:
