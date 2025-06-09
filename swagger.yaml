@@ -1041,6 +1041,21 @@ paths:
             "*/*":
               schema:
                 "$ref": "#/components/schemas/ResCategoryDto"
+  "/api/category/all":
+    get:
+      tags:
+      - 카테고리 API
+      summary: 모든 카테고리 정보 조회
+      operationId: getAllCategory
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ResCategoryDto"
   "/api/cart/my":
     get:
       tags:
