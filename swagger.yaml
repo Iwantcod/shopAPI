@@ -533,6 +533,48 @@ paths:
             "*/*":
               schema:
                 "$ref": "#/components/schemas/ResUserDto"
+  "/api/user/username/user/{userNameKey}":
+    get:
+      tags:
+      - 회원 API
+      summary: 유저네임 키워드로 일반 회원 정보 조회
+      operationId: getUserInfoByUsername
+      parameters:
+      - name: userNameKey
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ResUserDto"
+  "/api/user/username/seller/{userNameKey}":
+    get:
+      tags:
+      - 회원 API
+      summary: 유저네임(상호명) 키워드로 판매자 회원 정보 조회
+      operationId: getSellerInfoByUsername
+      parameters:
+      - name: userNameKey
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ResUserDto"
   "/api/user/my-info":
     get:
       tags:
@@ -547,14 +589,15 @@ paths:
             "*/*":
               schema:
                 "$ref": "#/components/schemas/ResUserDto"
-  "/api/user/email/{email}":
+  "/api/user/email/{emailKey}":
     get:
       tags:
       - 회원 API
-      summary: 이메일 주소로 특정 회원 정보 조회
+      summary: 이메일 주소 키워드로 특정 회원 정보 조회
+      description: 관리자 정보는 조회되지 않습니다.
       operationId: getUserInfoByEmail
       parameters:
-      - name: email
+      - name: emailKey
         in: path
         required: true
         schema:
@@ -565,7 +608,9 @@ paths:
           content:
             "*/*":
               schema:
-                "$ref": "#/components/schemas/ResUserDto"
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ResUserDto"
   "/api/spec/{categoryName}/name/{modelName}/{startOffset}":
     get:
       tags:
@@ -854,6 +899,34 @@ paths:
         schema:
           type: integer
           format: int64
+      - name: startOffset
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/ResProductDto"
+  "/api/product/name/{productNameKey}/{startOffset}":
+    get:
+      tags:
+      - 상품 API
+      summary: 상품 이름 키워드로 상품 조회
+      description: 카테고리 구분없이 검색, 삭제된 상품은 조회하지 않는다.
+      operationId: getProductByNameKey
+      parameters:
+      - name: productNameKey
+        in: path
+        required: true
+        schema:
+          type: string
       - name: startOffset
         in: path
         required: true
@@ -1447,6 +1520,8 @@ components:
         userId:
           type: integer
           format: int64
+        username:
+          type: string
         email:
           type: string
         name:
